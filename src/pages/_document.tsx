@@ -10,6 +10,7 @@ export default class MyDocument extends Document {
       <Html lang="en" className={roboto.className}>
         <Head>
           {/* PWA primary color */}
+          <link rel="manifest" href="/manifest.json" />
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="shortcut icon" href="/favicon.ico" />
           <meta name="emotion-insertion-point" content="" />
