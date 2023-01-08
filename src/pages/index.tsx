@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Link from "@src/components/Link";
 import ProTip from "@src/components/ProTip";
 import Copyright from "@src/components/Copyright";
-
+import ThemeSwitcher from "@src/components/ThemeSwitcher";
 export default function Home() {
   return (
     <Container maxWidth="lg">
@@ -18,6 +18,7 @@ export default function Home() {
           alignItems: "center",
         }}
       >
+        <ThemeSwitcher></ThemeSwitcher>
         <Typography variant="h4" component="h1" gutterBottom>
           MUI v5 + Next.js with TypeScript example
         </Typography>
