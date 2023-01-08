@@ -9,27 +9,54 @@ import Copyright from "@src/components/Copyright";
 
 export default function About() {
   return (
-    <Container maxWidth="lg">
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
+    >
+      <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
+        <Box
+          sx={{
+            my: 4,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h4" component="h1" gutterBottom>
+            MUI v5 + Next.js with TypeScript example
+          </Typography>
+          <Box maxWidth="sm">
+            <Button variant="contained" component={Link} noLinkStyle href="/">
+              Go to the home page
+            </Button>
+          </Box>
+          <ProTip />
+        </Box>
+      </Container>
+
       <Box
+        component="footer"
         sx={{
-          my: 4,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
+          py: 3,
+          px: 2,
+          mt: "auto",
+          backgroundColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.grey[200]
+              : theme.palette.grey[800],
         }}
       >
-        <Typography variant="h4" component="h1" gutterBottom>
-          MUI v5 + Next.js with TypeScript example
-        </Typography>
-        <Box maxWidth="sm">
-          <Button variant="contained" component={Link} noLinkStyle href="/">
-            Go to the home page
-          </Button>
-        </Box>
-        <ProTip />
-        <Copyright />
+        <Container maxWidth="sm">
+          <Typography variant="body1" textAlign={"center"}>
+            My sticky footer can be found here.
+          </Typography>
+          <Copyright />
+        </Container>
       </Box>
-    </Container>
+    </Box>
   );
 }
