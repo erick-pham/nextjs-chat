@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { ThemeContext } from "@src/context/themeContext";
 
 const StyledDarkModeSwitch = styled(Switch)(({ theme }) => ({
@@ -52,23 +52,44 @@ const StyledDarkModeSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const DarkModeSwitch = () => {
-  const theme = useContext(ThemeContext);
-  const darkMode = theme.darkMode;
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  // use the media query setting as the default (which can be overwritten)
+  const [darkMode, setDarkMode] = useState(prefersDarkMode);
+
+  const themeContext = useContext(ThemeContext);
+
+  useEffect(() => {
+    const mode = localStorage.getItem("theme");
+    if (mode !== null) {
+      if (mode === "dark") {
+        setDarkMode(true);
+        themeContext.changeMode({ type: "DARKMODE" });
+      }
+    }
+  }, []);
 
   const onChangeDarkMode = () => {
     if (darkMode) {
-      // if (typeof window !== "undefined") {
-      //   localStorage.setItem("theme", "light");
-      // }
-      theme.changeMode({ type: "LIGHTMODE" });
+      if (typeof window !== "undefined") {
+        localStorage.setItem("theme", "light");
+      }
+      setDarkMode(false);
+      themeContext.changeMode({ type: "LIGHTMODE" });
     } else {
-      // if (typeof window !== "undefined") {
-      //   localStorage.setItem("theme", "dark");
-      // }
-      theme.changeMode({ type: "DARKMODE" });
+      if (typeof window !== "undefined") {
+        localStorage.setItem("theme", "dark");
+      }
+      setDarkMode(true);
+      themeContext.changeMode({ type: "DARKMODE" });
     }
   };
-  return <StyledDarkModeSwitch value={darkMode} onChange={onChangeDarkMode} />;
+  return (
+    <StyledDarkModeSwitch
+      value={darkMode}
+      onChange={onChangeDarkMode}
+      checked={darkMode}
+    />
+  );
 };
 
 export default DarkModeSwitch;

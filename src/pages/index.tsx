@@ -6,7 +6,9 @@ import Link from "@src/components/Link";
 import ProTip from "@src/components/ProTip";
 import Copyright from "@src/components/Copyright";
 import ThemeSwitcher from "@src/components/ThemeSwitcher";
-export default function Home() {
+import type { GetServerSideProps, NextPage } from "next";
+
+const Home: NextPage = () => {
   return (
     <Container maxWidth="lg">
       <Box
@@ -25,7 +27,7 @@ export default function Home() {
         <Link href="/about" color="secondary">
           Go to the about page
         </Link>
-        <Link href="/signin" color="secondary">
+        <Link href="/sign-in" color="secondary">
           Go to the signIn page
         </Link>
         <Link href="/messages" color="secondary">
@@ -36,4 +38,11 @@ export default function Home() {
       </Box>
     </Container>
   );
-}
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: {},
+  };
+};
+export default Home;
