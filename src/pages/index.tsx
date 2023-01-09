@@ -27,7 +27,7 @@ const Home: NextPage = () => {
         <Link href="/about" color="secondary">
           Go to the about page
         </Link>
-        <Link href="/signin" color="secondary">
+        <Link href="/sign-in" color="secondary">
           Go to the signIn page
         </Link>
         <Link href="/messages" color="secondary">
