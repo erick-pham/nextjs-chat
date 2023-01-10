@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useStore, addMessage, supabase } from "@src/lib/supabase";
 import { User } from "@supabase/supabase-js";
 import Head from "next/head";
@@ -8,13 +8,14 @@ import Conversation from "@src/components/Messages/Conversation";
 import MessageTextbox from "@src/components/Messages/MessageTextbox";
 import NavBar from "@src/components/Messages/NavBar";
 import Sidebar from "@src/components/Messages/SideBar";
+import { Box, Container, Typography } from "@mui/material";
 
 const MainLayoutRoot = styled("div")(({ theme }) => ({
-  // display: "flex",
+  display: "flex",
   // flex: "1 1 auto",
-  // maxWidth: "100%",
+  flexDirection: "column",
+  minHeight: "100vh",
   paddingTop: 64,
-  // backgroundColor: "red",
   backgroundColor: theme.palette.background.paper,
   [theme.breakpoints.up("lg")]: {
     paddingLeft: 280,
@@ -58,6 +59,15 @@ const MessageChannelPage = () => {
     };
   }, []);
 
+  const messagesEndRef = useRef<any>();
+  useEffect(() => {
+    messagesEndRef?.current?.scrollIntoView &&
+      messagesEndRef.current.scrollIntoView({
+        block: "start",
+        behavior: "smooth",
+      });
+  }, [messages]);
+
   if (!userLoaded) {
     return <></>;
   }
@@ -76,11 +86,24 @@ const MessageChannelPage = () => {
         currentUser={currentUser}
       />
       <MainLayoutRoot>
-        <Conversation
-          messages={messages}
-          currentUser={currentUser}
-        ></Conversation>
-        <MessageTextbox onSendMessage={handleSendMessage}></MessageTextbox>
+        <Box
+          sx={{
+            mb: "auto",
+          }}
+        >
+          <Conversation
+            messages={messages}
+            currentUser={currentUser}
+          ></Conversation>
+          <div ref={messagesEndRef} style={{ height: 24 }} />
+        </Box>
+        <Box
+          sx={{
+            py: 2,
+          }}
+        >
+          <MessageTextbox onSendMessage={handleSendMessage}></MessageTextbox>
+        </Box>
       </MainLayoutRoot>
       <Sidebar
         onClose={() => setSidebarOpen(false)}
