@@ -103,9 +103,8 @@ export const useStore = (props: { channelId: number }) => {
           if (!users.get(authorId)) {
             const author = await fetchUser(authorId);
             users.set(authorId, author);
-          } else {
-            newMessage.author = users.get(authorId);
           }
+          newMessage.author = users.get(authorId);
           setMessages(messages.concat(newMessage));
         } catch (error) {
           console.error(error);

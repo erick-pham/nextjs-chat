@@ -71,7 +71,10 @@ const MessageChannelPage = () => {
       <Head>
         <title>Messenger - NextJS</title>
       </Head>
-      <NavBar onSidebarOpen={() => setSidebarOpen(true)} />
+      <NavBar
+        onSidebarOpen={() => setSidebarOpen(true)}
+        currentUser={currentUser}
+      />
       <MainLayoutRoot>
         <Conversation
           messages={messages}

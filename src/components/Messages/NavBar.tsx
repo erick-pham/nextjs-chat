@@ -7,10 +7,12 @@ import {
   IconButton,
   Toolbar,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
+import HouseIcon from "@mui/icons-material/House";
 import LogoutIcon from "@mui/icons-material/Logout";
+import Link from "@src/components/Link";
 import { BellIcon, UsersIcon } from "../Icons";
 import { useRouter } from "next/router";
 import { supabase } from "@src/lib/supabase";
@@ -21,8 +23,7 @@ const MessageNavbarRoot = styled(AppBar)(({ theme }: { theme: any }) => ({
 }));
 
 export const DashboardNavbar = (props: any) => {
-  const { onSidebarOpen, ...other } = props;
-
+  const { onSidebarOpen, currentUser, ...other } = props;
   const router = useRouter();
 
   const handleSignOut = async () => {
@@ -64,12 +65,18 @@ export const DashboardNavbar = (props: any) => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
-          <Tooltip title="Search">
-            <IconButton sx={{ ml: 1 }}>
-              <SearchIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
+          <Link href="/">
+            <Tooltip title="Home Page">
+              <IconButton sx={{ ml: 1 }}>
+                <HouseIcon fontSize="large" />
+              </IconButton>
+            </Tooltip>
+          </Link>
+
           <Box sx={{ flexGrow: 1 }} />
+          <Typography color={"text.secondary"}>
+            Hi {currentUser.email}
+          </Typography>
           <Tooltip title="Contacts">
             <IconButton sx={{ ml: 1 }}>
               <UsersIcon fontSize="small" />
