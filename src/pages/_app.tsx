@@ -1,17 +1,14 @@
 // import "../styles/globals.css";
-import { useReducer } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import createEmotionCache from "@src/theme/createEmotionCache";
 import { lightTheme, darkTheme } from "@src/theme";
-import {
-  ThemeContext,
-  themeReducer,
-  themeInitialState,
-} from "@src/context/themeContext";
+import { ThemeContext } from "@src/context/themeContext";
 // import { usePersistedReducer } from "@src/hooks/usePersistedReducer";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -25,15 +22,19 @@ export default function App({
   pageProps,
   emotionCache = clientSideEmotionCache,
 }: MyAppProps) {
-  const [state, dispatch] = useReducer(themeReducer, themeInitialState);
-  // const { state, dispatch } = usePersistedReducer(
-  //   themeReducer,
-  //   themeInitialState,
-  //   "persistedTheme"
-  // );
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [darkMode, setDarkMode] = useState(prefersDarkMode);
+
+  useEffect(() => {
+    const mode = localStorage.getItem("theme");
+    if (mode === "dark") {
+      setDarkMode(true);
+    }
+  }, []);
+
   return (
     <ThemeContext.Provider
-      value={{ darkMode: state.darkMode, changeMode: dispatch }}
+      value={{ darkMode: darkMode, changeMode: setDarkMode }}
     >
       <CacheProvider value={emotionCache}>
         <Head>
@@ -42,7 +43,7 @@ export default function App({
             content="initial-scale=1, width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no"
           />
         </Head>
-        <ThemeProvider theme={state.darkMode ? darkTheme : lightTheme}>
+        <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
           <Component {...pageProps} />
