@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect, FormEvent } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -11,15 +11,32 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Copyright from "@src/components/Copyright";
+import { supabase } from "@src/lib/supabase";
+import { useRouter } from "next/router";
 
 export default function SignInSide() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+  useEffect(() => {
+    supabase.auth.getSession().then((userSession) => {
+      if (userSession.data.session) router.replace("/");
+    });
+  });
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    // });
+    const userCred = new FormData(event.currentTarget);
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: String(userCred.get("email")),
+      password: String(userCred.get("password")),
+    });
+
+    if (error) {
+      alert(error.message);
+    }
+
+    if (data.session) {
+      router.replace("/");
+    }
   };
 
   return (
@@ -101,7 +118,7 @@ export default function SignInSide() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/sign-up" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
