@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
 import { ThemeContext } from "@src/context/themeContext";
@@ -61,7 +61,13 @@ const DarkModeSwitch = () => {
     themeContext.changeMode(value);
     localStorage.setItem("theme", value ? "dark" : "light");
   };
-  return <StyledDarkModeSwitch value={mode} onChange={onChangeDarkMode} />;
+  return (
+    <StyledDarkModeSwitch
+      value={mode}
+      onChange={onChangeDarkMode}
+      checked={themeContext.darkMode === true}
+    />
+  );
 };
 
 export default DarkModeSwitch;
