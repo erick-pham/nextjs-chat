@@ -1,14 +1,15 @@
 import { createContext } from "react";
 
 type ThemeContextProp = {
-  darkMode: boolean | false;
+  darkMode: boolean | null;
   changeMode: (value: any) => void;
 };
 export const themeInitialState = {
-  darkMode: false,
+  darkMode: null,
+  changeMode: (value: any) => {},
 };
 
-export const ThemeContext = createContext<ThemeContextProp>({});
+export const ThemeContext = createContext<ThemeContextProp>(themeInitialState);
 
 export const themeReducer = (state: any, action: { type: string }) => {
   switch (action.type) {
