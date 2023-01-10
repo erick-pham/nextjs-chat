@@ -1,19 +1,14 @@
 import { createContext } from "react";
-if (typeof window !== "undefined") {
-  console.log("localStorage", localStorage.getItem("theme"));
-}
+
 type ThemeContextProp = {
   darkMode: boolean | false;
-  changeMode: any;
+  changeMode: (value: any) => void;
 };
 export const themeInitialState = {
   darkMode: false,
 };
 
-export const ThemeContext = createContext<ThemeContextProp>({
-  ...themeInitialState,
-  changeMode: () => {},
-});
+export const ThemeContext = createContext<ThemeContextProp>({});
 
 export const themeReducer = (state: any, action: { type: string }) => {
   switch (action.type) {

@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { ThemeContext } from "@src/context/themeContext";
-
 const StyledDarkModeSwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
@@ -52,44 +50,18 @@ const StyledDarkModeSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const DarkModeSwitch = () => {
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  // use the media query setting as the default (which can be overwritten)
-  const [darkMode, setDarkMode] = useState(prefersDarkMode);
-
   const themeContext = useContext(ThemeContext);
+  const [mode, setMode] = useState(themeContext.darkMode);
 
-  useEffect(() => {
-    const mode = localStorage.getItem("theme");
-    if (mode !== null) {
-      if (mode === "dark") {
-        setDarkMode(true);
-        themeContext.changeMode({ type: "DARKMODE" });
-      }
-    }
-  }, []);
-
-  const onChangeDarkMode = () => {
-    if (darkMode) {
-      if (typeof window !== "undefined") {
-        localStorage.setItem("theme", "light");
-      }
-      setDarkMode(false);
-      themeContext.changeMode({ type: "LIGHTMODE" });
-    } else {
-      if (typeof window !== "undefined") {
-        localStorage.setItem("theme", "dark");
-      }
-      setDarkMode(true);
-      themeContext.changeMode({ type: "DARKMODE" });
-    }
+  const onChangeDarkMode = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    value: boolean
+  ) => {
+    setMode(value);
+    themeContext.changeMode(value);
+    localStorage.setItem("theme", value ? "dark" : "light");
   };
-  return (
-    <StyledDarkModeSwitch
-      value={darkMode}
-      onChange={onChangeDarkMode}
-      checked={darkMode}
-    />
-  );
+  return <StyledDarkModeSwitch value={mode} onChange={onChangeDarkMode} />;
 };
 
 export default DarkModeSwitch;
