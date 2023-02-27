@@ -7,8 +7,11 @@ import ProTip from "@src/components/ProTip";
 import Copyright from "@src/components/Copyright";
 import ThemeSwitcher from "@src/components/ThemeSwitcher";
 import type { GetServerSideProps, NextPage } from "next";
+import useTrans from "@src/hooks/useTrans";
+import LangSelector from "@src/components/LangSelector";
 
 const Home: NextPage = () => {
+  const trans = useTrans();
   return (
     <Container maxWidth="lg">
       <Box
@@ -21,17 +24,18 @@ const Home: NextPage = () => {
         }}
       >
         <ThemeSwitcher></ThemeSwitcher>
+        <LangSelector></LangSelector>
         <Typography variant="h4" component="h1" gutterBottom>
-          MUI v5 + Next.js with TypeScript example
+          {trans.home.title}
         </Typography>
         <Link href="/about" color="secondary">
-          Go to the about page
+          {trans.home.visits[0]}
         </Link>
         <Link href="/sign-in" color="secondary">
-          Go to the signIn page
+          {trans.home.visits[1]}
         </Link>
         <Link href="/messages" color="secondary">
-          Go to the chat page
+          {trans.home.visits[2]}
         </Link>
         <ProTip />
         <Copyright />

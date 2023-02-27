@@ -2,6 +2,7 @@ import * as React from "react";
 import Link from "@mui/material/Link";
 import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
 import Typography from "@mui/material/Typography";
+import useTrans from "@src/hooks/useTrans";
 
 function LightBulbIcon(props: SvgIconProps) {
   return (
@@ -12,14 +13,15 @@ function LightBulbIcon(props: SvgIconProps) {
 }
 
 export default function ProTip() {
+  const trans = useTrans();
   return (
     <Typography sx={{ mt: 6, mb: 3 }} color="text.secondary">
       <LightBulbIcon sx={{ mr: 1, verticalAlign: "middle" }} />
-      Pro tip: See more{" "}
+      {trans.home.tip[0]}
       <Link href="https://mui.com/getting-started/templates/">
-        templates
+        {trans.home.tip[1]}
       </Link>{" "}
-      on the MUI documentation.
+      {trans.home.tip[2]}
     </Typography>
   );
 }
