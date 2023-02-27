@@ -17,15 +17,7 @@ export default function About() {
       }}
     >
       <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
-        <Box
-          sx={{
-            my: 4,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <Box>
           <Typography variant="h4" component="h1" gutterBottom>
             MUI v5 + Next.js with TypeScript example
           </Typography>
