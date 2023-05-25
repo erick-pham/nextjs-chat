@@ -11,16 +11,16 @@ export const themeInitialState = {
 
 export const ThemeContext = createContext<ThemeContextProp>(themeInitialState);
 
-export const themeReducer = (state: any, action: { type: string }) => {
-  switch (action.type) {
-    case "LIGHTMODE":
-      return { darkMode: false };
-    case "DARKMODE":
-      return { darkMode: true };
-    default:
-      throw new Error(`Unknown action type: ${action.type}`);
-  }
-};
+// export const themeReducer = (state: any, action: { type: string }) => {
+//   switch (action.type) {
+//     case "LIGHT_MODE":
+//       return { darkMode: false };
+//     case "DARK_MODE":
+//       return { darkMode: true };
+//     default:
+//       throw new Error(`Unknown action type: ${action.type}`);
+//   }
+// };
 
 // export function ThemeContextProvider(props) {
 //   const [state, dispatch] = useReducer(themeReducer, initialState);

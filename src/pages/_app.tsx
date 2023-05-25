@@ -9,6 +9,8 @@ import { CacheProvider, EmotionCache } from "@emotion/react";
 import createEmotionCache from "@src/theme/createEmotionCache";
 import { lightTheme, darkTheme } from "@src/theme";
 import { ThemeContext } from "@src/context/themeContext";
+import { SnackbarProvider } from "notistack";
+import { SnackbarUtilsConfigurator } from "@src/components/Snackbar";
 // import { usePersistedReducer } from "@src/hooks/usePersistedReducer";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -46,7 +48,17 @@ export default function App({
         <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <Component {...pageProps} />
+          <SnackbarProvider
+            maxSnack={4}
+            autoHideDuration={2000}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+          >
+            <SnackbarUtilsConfigurator />
+            <Component {...pageProps} />
+          </SnackbarProvider>
         </ThemeProvider>
       </CacheProvider>
     </ThemeContext.Provider>
