@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Link from "@src/components/Link";
 import ProTip from "@src/components/ProTip";
 import Copyright from "@src/components/Copyright";
+import LangSelector from "@src/components/LangSelector";
 
 export default function About() {
   return (
@@ -17,15 +18,8 @@ export default function About() {
       }}
     >
       <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
-        <Box
-          sx={{
-            my: 4,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <Box>
+          <LangSelector></LangSelector>
           <Typography variant="h4" component="h1" gutterBottom>
             MUI v5 + Next.js with TypeScript example
           </Typography>

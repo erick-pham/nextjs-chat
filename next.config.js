@@ -8,6 +8,12 @@ const withPWA = require('next-pwa')({
 module.exports = withPWA({
   // next.js config
   reactStrictMode: true,
+  i18n: {
+    locales: ['en', 'vi'],
+    defaultLocale: 'en',
+    localeDetection: false,
+  },
+  trailingSlash: true,
 })
 // const nextConfig = {
 
