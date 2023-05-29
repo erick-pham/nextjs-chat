@@ -1,20 +1,20 @@
 /** @type {import('next').NextConfig} */
-const withPWA = require('next-pwa')({
-  dest: 'public',
+const withPWA = require("next-pwa")({
+  dest: "public",
   // disable: process.env.NODE_ENV === 'development'
-  disable: true
-})
+  disable: true,
+  trailingSlash: false,
+});
 
 module.exports = withPWA({
   // next.js config
   reactStrictMode: true,
   i18n: {
-    locales: ['en', 'vi'],
-    defaultLocale: 'en',
+    locales: ["en", "vi"],
+    defaultLocale: "en",
     localeDetection: false,
   },
-  trailingSlash: true,
-})
+});
 // const nextConfig = {
 
 // }

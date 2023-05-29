@@ -8,6 +8,9 @@ const langEN = {
       "Go to the chat page",
     ],
   },
+  signIn: {
+    OAuthAccountNotLinked: "Your email registered",
+  },
 };
 
 export default langEN;

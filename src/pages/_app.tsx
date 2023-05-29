@@ -11,6 +11,7 @@ import { lightTheme, darkTheme } from "@src/theme";
 import { ThemeContext } from "@src/context/themeContext";
 import { SnackbarProvider } from "notistack";
 import { SnackbarUtilsConfigurator } from "@src/components/Snackbar";
+import { SessionProvider } from "next-auth/react";
 // import { usePersistedReducer } from "@src/hooks/usePersistedReducer";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -57,7 +58,9 @@ export default function App({
             }}
           >
             <SnackbarUtilsConfigurator />
-            <Component {...pageProps} />
+            <SessionProvider session={pageProps.session}>
+              <Component {...pageProps} />
+            </SessionProvider>
           </SnackbarProvider>
         </ThemeProvider>
       </CacheProvider>

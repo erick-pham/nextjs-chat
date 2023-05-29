@@ -31,7 +31,7 @@ const Home: NextPage = () => {
         <Link href="/about" color="secondary">
           {trans.home.visits[0]}
         </Link>
-        <Link href="/sign-in" color="secondary">
+        <Link href="/auth/sign-in" color="secondary">
           {trans.home.visits[1]}
         </Link>
         <Link href="/messages" color="secondary">
